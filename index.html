@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Habilé — Propuesta Económica por Fases</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400;500;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream:      #F7F4EF;
+    --cream-mid:  #EDE9E1;
+    --cream-dark: #DDD8CE;
+    --carbon:     #2A2A27;
+    --ink-mid:    #4E4E49;
+    --ink-light:  #8A8880;
+    --white:      #FFFFFF;
+    --blue:       #0F3CC1;
+    --green:      #39B44A;
+    --orange:     #FF921E;
+    --yellow:     #FFC304;
+    --sans: 'Gabarito', sans-serif;
+    --serif: 'Libre Baskerville', serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--cream);
+    color: var(--carbon);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  .top-nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(247,244,239,0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--cream-dark);
+  }
+  .nav-accent { display: flex; height: 3px; }
+  .nav-accent span { flex: 1; }
+  .nav-inner {
+    padding: 0 64px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-brand {
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--carbon);
+    letter-spacing: -0.2px;
+  }
+  .nav-brand span {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--ink-light);
+    font-size: 12px;
+    margin-left: 6px;
+  }
+  .nav-links { display: flex; gap: 6px; list-style: none; }
+  .nav-links a {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--ink-mid);
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 20px;
+    transition: background 0.2s, color 0.2s;
+  }
+  .nav-links a:hover { background: var(--cream-mid); color: var(--carbon); }
+  .nav-links a.active { background: var(--carbon); color: var(--white); }
+
+  /* ── SHARED ── */
+  .section {
+    padding: 96px 64px 80px;
+    border-top: 1px solid var(--cream-dark);
+    position: relative;
+  }
+  .section-alt  { background: var(--white); }
+  .section-mid  { background: var(--cream-mid); }
+  .section-dark { background: var(--carbon); }
+
+  .eyebrow {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 16px;
+  }
+  .eyebrow-light { color: rgba(255,255,255,0.35); }
+
+  .mt16 { margin-top: 16px; }
+
+  /* ── REVEAL ── */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ── COVER ── */
+  .cover {
+    min-height: 100vh;
+    padding: 120px 64px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background: var(--cream);
+    position: relative;
+    overflow: hidden;
+  }
+  .cover-bg-wave {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .cover-bg-wave svg {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 140%;
+    opacity: 0.07;
+  }
+  .cover-date {
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ink-light); margin-bottom: 40px;
+  }
+  .cover h1 {
+    font-family: var(--sans);
+    font-size: clamp(48px, 7vw, 84px);
+    font-weight: 700;
+    line-height: 0.92;
+    letter-spacing: -2.5px;
+    color: var(--carbon);
+    margin-bottom: 6px;
+  }
+  .cover h1 em {
+    display: block;
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(36px, 5.2vw, 66px);
+    color: var(--ink-mid);
+    letter-spacing: -1px;
+    line-height: 1.1;
+  }
+  .cover-sub {
+    font-family: var(--serif);
+    font-size: 15px; line-height: 1.8;
+    color: var(--ink-mid);
+    max-width: 480px;
+    margin-top: 32px; margin-bottom: 64px;
+  }
+  .cover-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-top: 1px solid var(--cream-dark);
+    padding-top: 28px;
+  }
+  .cover-meta p {
+    font-family: var(--sans);
+    font-size: 12px; color: var(--ink-light); line-height: 1.8;
+  }
+  .cover-accent-bar { display: flex; gap: 6px; }
+  .cover-accent-bar span { width: 24px; height: 4px; border-radius: 2px; }
+
+  /* ── TOTALS STRIP ── */
+  .totals-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--cream-dark);
+    margin-bottom: 64px;
+  }
+  .total-cell {
+    padding: 32px 28px;
+    background: var(--white);
+    position: relative;
+  }
+  .total-cell-accent {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .total-cell-label {
+    font-family: var(--sans);
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 12px;
+  }
+  .total-cell-price {
+    font-family: var(--sans);
+    font-size: 32px; font-weight: 700;
+    letter-spacing: -1px;
+    color: var(--carbon);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .total-cell-price-pen {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--ink-light);
+    margin-bottom: 12px;
+  }
+  .total-cell-desc {
+    font-family: var(--serif);
+    font-size: 12px; line-height: 1.7;
+    color: var(--ink-mid);
+  }
+
+  /* ── PHASE SECTION ── */
+  .phase-section { padding: 80px 64px; border-top: 1px solid var(--cream-dark); }
+
+  .phase-header {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 48px;
+    align-items: start;
+    margin-bottom: 48px;
+  }
+  .phase-tag {
+    padding: 28px 24px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .phase-tag-num {
+    font-family: var(--sans);
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    opacity: 0.55;
+  }
+  .phase-tag-name {
+    font-family: var(--sans);
+    font-size: 22px; font-weight: 700;
+    letter-spacing: -0.5px; line-height: 1.1;
+  }
+  .phase-tag-sub {
+    font-family: var(--serif);
+    font-style: italic; font-size: 12px;
+    opacity: 0.6; line-height: 1.5; margin-top: 4px;
+  }
+  .phase-intro h2 {
+    font-family: var(--sans);
+    font-size: clamp(22px, 3vw, 32px);
+    font-weight: 700; letter-spacing: -0.7px;
+    color: var(--carbon); line-height: 1.1;
+    margin-bottom: 12px;
+  }
+  .phase-intro p {
+    font-family: var(--serif);
+    font-size: 14px; line-height: 1.8;
+    color: var(--ink-mid); max-width: 560px;
+  }
+
+  /* ── DELIVERABLES TABLE ── */
+  .deliverables-block {
+    background: var(--white);
+    border-radius: 12px;
+    border: 1px solid var(--cream-dark);
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+  .deliverables-header {
+    padding: 18px 28px;
+    border-bottom: 1px solid var(--cream-mid);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .dh-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .dh-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%; flex-shrink: 0;
+  }
+  .dh-label {
+    font-family: var(--sans);
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-light);
+  }
+  .dh-price-block {
+    display: flex; align-items: baseline; gap: 8px;
+  }
+  .dh-price {
+    font-family: var(--sans);
+    font-size: 20px; font-weight: 700;
+    letter-spacing: -0.5px; color: var(--carbon);
+  }
+  .dh-price-pen {
+    font-family: var(--serif);
+    font-style: italic; font-size: 12px;
+    color: var(--ink-light);
+  }
+
+  .deliverables-body {
+    padding: 24px 28px;
+  }
+  .deliverable-row {
+    display: grid;
+    grid-template-columns: 28px 1fr auto;
+    gap: 12px 16px;
+    align-items: start;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--cream-mid);
+  }
+  .deliverable-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .deliverable-num {
+    font-family: var(--sans);
+    font-size: 10px; font-weight: 600;
+    color: var(--ink-light); padding-top: 2px;
+    letter-spacing: 0.05em;
+  }
+  .deliverable-content {}
+  .deliverable-title {
+    font-family: var(--sans);
+    font-size: 13.5px; font-weight: 700;
+    color: var(--carbon); margin-bottom: 4px;
+    letter-spacing: -0.2px;
+  }
+  .deliverable-desc {
+    font-family: var(--serif);
+    font-size: 12.5px; line-height: 1.75;
+    color: var(--ink-mid);
+  }
+  .deliverable-tag {
+    font-family: var(--sans);
+    font-size: 10px; font-weight: 600;
+    padding: 4px 10px; border-radius: 20px;
+    letter-spacing: 0.04em; white-space: nowrap;
+    margin-top: 2px;
+  }
+  .tag-included { background: rgba(57,180,74,0.1); color: var(--green); }
+  .tag-output   { background: rgba(255,195,4,0.1);  color: #8a6800; }
+  .tag-ongoing  { background: rgba(15,60,193,0.09); color: var(--blue); }
+
+  /* ── PRICE SUMMARY CARD ── */
+  .price-summary {
+    background: var(--carbon);
+    border-radius: 12px;
+    padding: 32px 36px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+  }
+  .ps-left {}
+  .ps-label {
+    font-family: var(--sans);
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 8px;
+  }
+  .ps-title {
+    font-family: var(--sans);
+    font-size: 17px; font-weight: 700;
+    color: var(--white); letter-spacing: -0.3px;
+  }
+  .ps-right {
+    text-align: right;
+  }
+  .ps-price {
+    font-family: var(--sans);
+    font-size: 40px; font-weight: 700;
+    letter-spacing: -1.5px; color: var(--white); line-height: 1;
+    margin-bottom: 4px;
+  }
+  .ps-price-pen {
+    font-family: var(--serif);
+    font-style: italic; font-size: 14px;
+    color: rgba(255,255,255,0.45);
+  }
+
+  /* ── MONTHLY SERVICE ── */
+  .monthly-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 32px;
+  }
+  .monthly-card {
+    background: var(--white);
+    border-radius: 10px;
+    border: 1px solid var(--cream-dark);
+    padding: 28px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .monthly-card-accent {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .monthly-card h4 {
+    font-family: var(--sans);
+    font-size: 14px; font-weight: 700;
+    color: var(--carbon); letter-spacing: -0.2px;
+    margin-bottom: 8px; margin-top: 6px;
+  }
+  .monthly-card-icon {
+    font-size: 20px; margin-bottom: 10px; display: block;
+  }
+  .monthly-card p {
+    font-family: var(--serif);
+    font-size: 12.5px; line-height: 1.75;
+    color: var(--ink-mid);
+  }
+  .monthly-items {
+    margin-top: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .monthly-item {
+    font-family: var(--sans);
+    font-size: 11.5px; color: var(--ink-mid);
+    display: flex; align-items: flex-start; gap: 8px;
+    line-height: 1.5;
+  }
+  .mi-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    margin-top: 5px; flex-shrink: 0;
+  }
+
+  /* ── INVESTMENT OVERVIEW ── */
+  .investment-section { background: var(--cream-mid); }
+
+  .inv-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 40px;
+    background: var(--white);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--cream-dark);
+  }
+  .inv-table th {
+    font-family: var(--sans);
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-light);
+    padding: 16px 24px;
+    background: var(--cream-mid);
+    border-bottom: 1px solid var(--cream-dark);
+    text-align: left;
+  }
+  .inv-table td {
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--cream-mid);
+    vertical-align: top;
+  }
+  .inv-table tr:last-child td { border-bottom: none; }
+  .inv-row-label {
+    font-family: var(--sans);
+    font-size: 13px; font-weight: 700;
+    color: var(--carbon);
+  }
+  .inv-row-sub {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 11.5px; color: var(--ink-light);
+    margin-top: 2px;
+  }
+  .inv-row-price {
+    font-family: var(--sans);
+    font-size: 15px; font-weight: 700;
+    color: var(--carbon); letter-spacing: -0.3px;
+  }
+  .inv-row-pen {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 11.5px; color: var(--ink-light);
+    margin-top: 2px;
+  }
+  .inv-row-type {
+    font-family: var(--sans);
+    font-size: 11px; font-weight: 600;
+    padding: 3px 10px; border-radius: 20px;
+    display: inline-block;
+  }
+  .type-project  { background: rgba(255,146,30,0.1); color: var(--orange); }
+  .type-monthly  { background: rgba(15,60,193,0.09); color: var(--blue); }
+
+  .inv-total-row td {
+    padding: 24px 24px;
+    background: var(--cream);
+    border-top: 2px solid var(--cream-dark);
+  }
+  .inv-total-label {
+    font-family: var(--sans);
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 4px;
+  }
+  .inv-total-price {
+    font-family: var(--sans);
+    font-size: 22px; font-weight: 700;
+    letter-spacing: -0.8px; color: var(--carbon);
+  }
+  .inv-total-pen {
+    font-family: var(--serif);
+    font-style: italic; font-size: 13px;
+    color: var(--ink-light); margin-top: 3px;
+  }
+
+  /* ── NOTE ── */
+  .note-block {
+    background: var(--white);
+    border-left: 3px solid var(--yellow);
+    border-radius: 0 10px 10px 0;
+    padding: 24px 28px;
+    margin-top: 40px;
+    max-width: 720px;
+  }
+  .note-block p {
+    font-family: var(--serif);
+    font-size: 13.5px; line-height: 1.8;
+    color: var(--ink-mid);
+  }
+  .note-block p + p { margin-top: 10px; }
+
+  /* ── CLOSE ── */
+  .close-section {
+    background: var(--carbon);
+    padding: 96px 64px 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+  .close-content h2 {
+    font-family: var(--sans);
+    font-size: clamp(32px, 5vw, 56px);
+    font-weight: 700;
+    letter-spacing: -1.5px;
+    color: var(--white);
+    line-height: 0.95;
+    margin-bottom: 24px;
+  }
+  .close-content h2 em {
+    display: block;
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    color: rgba(255,255,255,0.55);
+    letter-spacing: -1px;
+  }
+  .close-content p {
+    font-family: var(--serif);
+    font-size: 15px; line-height: 1.8;
+    color: rgba(255,255,255,0.6);
+    max-width: 580px;
+    margin-bottom: 10px;
+  }
+  .close-accent-bar {
+    display: flex; gap: 8px; margin-top: 40px;
+  }
+  .close-accent-bar span {
+    height: 4px; border-radius: 2px;
+  }
+  .close-meta {
+    display: flex;
+    gap: 48px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  .close-meta p {
+    font-family: var(--sans);
+    font-size: 12px; color: rgba(255,255,255,0.35);
+    line-height: 1.8;
+  }
+
+  /* ── EXCHANGE NOTE ── */
+  .exchange-note {
+    font-family: var(--sans);
+    font-size: 10.5px;
+    color: var(--ink-light);
+    letter-spacing: 0.03em;
+    margin-top: 8px;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="top-nav">
+  <div class="nav-accent">
+    <span style="background:var(--yellow)"></span>
+    <span style="background:var(--orange)"></span>
+    <span style="background:var(--green)"></span>
+    <span style="background:var(--blue)"></span>
+  </div>
+  <div class="nav-inner">
+    <div class="nav-brand">Habilé <span>Propuesta económica</span></div>
+    <ul class="nav-links">
+      <li><a href="#resumen">Resumen</a></li>
+      <li><a href="#fase1">Fase 1</a></li>
+      <li><a href="#fase2">Fase 2</a></li>
+      <li><a href="#mensual">Servicio mensual</a></li>
+      <li><a href="#inversion">Inversión total</a></li>
+    </ul>
+  </div>
+</nav>
+
+
+<!-- COVER -->
+<div class="cover" id="cover">
+  <div class="cover-bg-wave">
+    <svg viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M-100,250 C100,80 300,420 500,250 S700,80 900,250" stroke="#FF921E" stroke-width="2.5" fill="none"/>
+      <path d="M-100,300 C150,100 350,450 550,280 S750,100 950,300" stroke="#FFC304" stroke-width="2" fill="none"/>
+      <path d="M-100,200 C80,30 280,380 480,210 S680,30 880,200" stroke="#39B44A" stroke-width="1.5" fill="none"/>
+      <path d="M-100,350 C120,150 320,480 520,310 S720,130 920,350" stroke="#0F3CC1" stroke-width="1" fill="none"/>
+    </svg>
+  </div>
+
+  <p class="cover-date">Propuesta económica · Mayo 2026</p>
+  <h1>
+    Inversión por fases
+    <em>Habilé · Lima, Perú</em>
+  </h1>
+  <p class="cover-sub">Dos fases de proyecto más un servicio mensual de activación continua. Una estructura pensada para construir de forma sostenida — desde los fundamentos estratégicos hasta la presencia digital cotidiana.</p>
+
+  <div class="cover-meta">
+    <p>
+      Ignacia Benavente<br>
+      Estrategia de marca · Comunicaciones
+    </p>
+    <div class="cover-accent-bar">
+      <span style="background:var(--yellow)"></span>
+      <span style="background:var(--orange)"></span>
+      <span style="background:var(--green)"></span>
+      <span style="background:var(--blue)"></span>
+    </div>
+  </div>
+</div>
+
+
+<!-- RESUMEN / TOTALS -->
+<div class="section section-alt" id="resumen">
+  <p class="eyebrow reveal">00 — Estructura de la propuesta</p>
+  <div style="max-width:680px; margin-bottom:48px;" class="reveal">
+    <h2 style="font-family:var(--sans);font-size:clamp(26px,3.2vw,38px);font-weight:700;letter-spacing:-0.8px;line-height:1.05;margin-bottom:16px;">Tres componentes,<br><em style="font-family:var(--serif);font-style:italic;font-weight:400;color:var(--ink-mid);">un proceso coherente</em></h2>
+    <p style="font-family:var(--serif);font-size:15px;line-height:1.8;color:var(--ink-mid);">La propuesta está organizada en dos fases de proyecto cerradas y un servicio mensual recurrente. Cada fase construye sobre la anterior — no se puede activar bien lo que no tiene fundamento estratégico, ni sostener una presencia si no hay sistema que la oriente.</p>
+  </div>
+
+  <div class="totals-strip reveal">
+    <div class="total-cell">
+      <div class="total-cell-accent" style="background:var(--yellow)"></div>
+      <div class="total-cell-label">Fase 1</div>
+      <div class="total-cell-price">800 €</div>
+      <div class="total-cell-price-pen">S/ 3.172</div>
+      <div class="total-cell-desc">Brand Strategy + Brand System — el libro de marca completo</div>
+    </div>
+    <div class="total-cell">
+      <div class="total-cell-accent" style="background:var(--orange)"></div>
+      <div class="total-cell-label">Fase 2</div>
+      <div class="total-cell-price">1.500 €</div>
+      <div class="total-cell-price-pen">S/ 5.947</div>
+      <div class="total-cell-desc">Web + estrategia de contenidos + campaña de lanzamiento</div>
+    </div>
+    <div class="total-cell">
+      <div class="total-cell-accent" style="background:var(--green)"></div>
+      <div class="total-cell-label">Servicio mensual</div>
+      <div class="total-cell-price">600 €</div>
+      <div class="total-cell-price-pen">S/ 2.379 / mes</div>
+      <div class="total-cell-desc">Instagram · Newsletter · Blog — presencia continua con voz propia</div>
+    </div>
+    <div class="total-cell">
+      <div class="total-cell-accent" style="background:var(--blue)"></div>
+      <div class="total-cell-label">Total proyecto + 1er mes</div>
+      <div class="total-cell-price">2.900 €</div>
+      <div class="total-cell-price-pen">S/ 11.497</div>
+      <div class="total-cell-desc">Inversión de arranque completa para el primer mes de activación</div>
+    </div>
+  </div>
+  <p class="exchange-note reveal">Tipo de cambio: 1 EUR = 3,9644 PEN · Referencia Investing.com · 28 mayo 2026</p>
+</div>
+
+
+<!-- FASE 1 -->
+<div class="phase-section" id="fase1">
+  <p class="eyebrow reveal">01 — Fase de proyecto</p>
+
+  <div class="phase-header reveal">
+    <div class="phase-tag" style="background:rgba(255,195,4,0.1);">
+      <span class="phase-tag-num" style="color:var(--yellow);">Fase 01</span>
+      <span class="phase-tag-name">Brand Strategy<br>+ Brand System</span>
+      <span class="phase-tag-sub">Refinar · Elevar · Sistematizar</span>
+    </div>
+    <div class="phase-intro">
+      <h2>El fundamento que hace que todo lo demás dure</h2>
+      <p>Refinar y elevar lo que ya existe — y crear los elementos clave que orientan la ejecución a largo plazo. Un brand book completo que integra estrategia y sistema visual en un único documento de referencia para el equipo, los colaboradores y cualquier pieza futura de comunicación.</p>
+    </div>
+  </div>
+
+  <!-- Brand Strategy block -->
+  <div class="deliverables-block reveal">
+    <div class="deliverables-header">
+      <div class="dh-left">
+        <div class="dh-dot" style="background:var(--yellow)"></div>
+        <span class="dh-label">Brand Strategy — fundamentos</span>
+      </div>
+    </div>
+    <div class="deliverables-body">
+      <div class="deliverable-row">
+        <span class="deliverable-num">01</span>
+        <div class="deliverable-content">
+          <div class="deliverable-title">Propósito de marca</div>
+          <div class="deliverable-desc">Reformulación del propósito actual para que ponga el vínculo terapéutico en el centro y comunique con precisión lo que diferencia a Habilé en el sector. Un enunciado que pueda vivir en todos los soportes y orientar las decisiones de comunicación.</div>
+        </div>
+        <span class="deliverable-tag tag-output">Entregable</span>
+      </div>
+      <div class="deliverable-row">
+        <span class="deliverable-num">02</span>
+        <div class="deliverable-content">
+          <div class="deliverable-title">Posicionamiento diferenciado</div>
+          <div class="deliverable-desc">Definición del territorio propio de Habilé en el sector de psicología y psicopedagogía en Lima. Qué lugar ocupa, frente a quién se posiciona, y qué lo hace único — más allá de la trayectoria y la variedad de servicios.</div>
+        </div>
+        <span class="deliverable-tag tag-output">Entregable</span>
+      </div>
+      <div class="deliverable-row">
+        <span class="deliverable-num">03</span>
+        <div class="deliverable-content">
+          <div class="deliverable-title">Valores y personalidad de marca</div>
+          <div class="deliverable-desc">Redefinición de los valores desde la función narrativa que cumplen — no como lista de virtudes, sino como principios que se pueden ver en acción en cada punto de contacto. Personalidad expresada en términos que guíen decisiones creativas.</div>
+        </div>
+        <span class="deliverable-tag tag-output">Entregable</span>
+      </div>
+      <div class="deliverable-row">
+        <span class="deliverable-num">04</span>
+        <div class="deliverable-content">
+          <div class="deliverable-title">Tono de voz — con ejemplos concretos</div>
+          <div class="deliverable-desc">Cómo habla Habilé: con qué registros, en qué situaciones, y cómo no habla. Incluye ejemplos de cómo se dice y cómo no se dice — para que cualquier miembro del equipo pueda comunicar con la voz de la marca.</div>
+        </div>
+        <span class="deliverable-tag tag-output">Entregable</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Brand System block -->
+  <div class="deliverables-block reveal">
+    <div class="deliverables-header">
+      <div class="dh-left">
+        <div class="dh-dot" style="background:var(--orange)"></div>
+        <span class="dh-label">Brand System — forma y comunicación</span>
+      </div>
+    </div>
+    <div class="deliverables-body">
+      <div class="deliverable-row">
+        <span class="deliverable-num">06</span>
+        <div class="deliverable-content">
+          <div class="deliverable-title">Sistema visual — paleta, tipografía y aplicaciones</div>
+          <div class="deliverable-desc">Reequilibrio jerárquico de los cuatro colores de marca actuales: superficies cálidas como base dominante, colores de acento con rol semántico específico. Incorporación de familia tipográfica secundaria serif que crea contraste real. Criterios de aplicación en distintos contextos y universo de símbolos y recursos gráficos.</div>
+        </div>
+        <span class="deliverable-tag tag-output">Entregable</span>
+      </div>
+      <div class="deliverable-row">
+        <span class="deliverable-num">07</span>
+        <div class="deliverable-content">
+          <div class="deliverable-title">Territorio creativo y universo visual</div>
+          <div class="deliverable-desc">Las ondas como elemento gráfico central — con criterios claros de uso, escala y variación. Universo de imágenes de referencia: qué tipo de fotografía comunica con la voz de Habilé y qué no. Criterios para que la identidad sea coherente sin ser rígida.</div>
+        </div>
+        <span class="deliverable-tag tag-output">Entregable</span>
+      </div>
+      <div class="deliverable-row">
+        <span class="deliverable-num">08</span>
+        <div class="deliverable-content">
+          <div class="deliverable-title">Framework de mensajes clave</div>
+          <div class="deliverable-desc">Sistema de mensajes diferenciado por audiencia: familias con niños y adolescentes, adultos en proceso individual, comunidad profesional y profesionales en formación. Cada eje narrativo con mensajes específicos y enfoques terapéuticos asociados.</div>
+        </div>
+        <span class="deliverable-tag tag-output">Entregable</span>
+      </div>
+      <div class="deliverable-row">
+        <span class="deliverable-num">09</span>
+        <div class="deliverable-content">
+          <div class="deliverable-title">Lineamientos editoriales</div>
+          <div class="deliverable-desc">Los tres ejes comunicacionales de Habilé — Espacio seguro, El proceso, Sana para vivir mejor — traducidos a una guía editorial accionable: qué tipos de contenido producir, en qué tono, con qué objetivos por eje.</div>
+        </div>
+        <span class="deliverable-tag tag-output">Entregable</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="price-summary reveal">
+    <div class="ps-left">
+      <div class="ps-label">Entregable de cierre · Fase 1</div>
+      <div class="ps-title">Brand Book: Brand Strategy + Brand Visuals</div>
+    </div>
+    <div class="ps-right">
+      <div class="ps-price">800 €</div>
+      <div class="ps-price-pen">S/ 3.172 soles peruanos</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- FASE 2 -->
+<div class="phase-section section-alt" id="fase2">
+  <p class="eyebrow reveal">02 — Fase de proyecto</p>
+
+  <div class="phase-header reveal">
+    <div class="phase-tag" style="background:rgba(57,180,74,0.1);">
+      <span class="phase-tag-num" style="color:var(--green);">Fase 02</span>
+      <span class="phase-tag-name">Brand<br>Activation</span>
+      <span class="phase-tag-sub">Web · Copywriting · Lanzamiento</span>
+    </div>
+    <div class="phase-intro">
+      <h2>La marca en sus puntos de contacto</h2>
+      <p>Todo lo definido en la Fase 1 se traduce aquí a lo concreto. Un nuevo sitio web con arquitectura orientada a conversión, una estrategia de contenidos que da fundamento editorial al trabajo mensual, y una mini campaña de lanzamiento que comunica el cambio hacia afuera y hacia adentro — al equipo, a los pacientes actuales y a las familias.</p>
+    </div>
+  </div>
+
+  <!-- Web block -->
+  <div class="deliverables-block reveal">
+    <div class="deliverables-header">
+      <div class="dh-left">
+        <div class="dh-dot" style="background:var(--green)"></div>
+        <span class="dh-label">Nuevo sitio web</span>
+      </div>
+      <div class="dh-price-block">
+        <span class="dh-price">1.000 €</span>
+        <span class="dh-price-pen">S/ 3.964</span>
+      </div>
+    </div>
+    <div class="deliverables-body">
+      <div class="deliverable-row">
+        <span class="deliverable-num">01</span>
+        <div class="deliverable-content">
+          <div class="deliverable-title">Arquitectura de información — re-estructura completa</div>
+          <div class="deliverable-desc">Nueva navegación y jerarquía de páginas orientada a conversión: de visita a consulta, no solo a información. Estructura que refleje la amplitud de servicios de Habilé sin abrumar al visitante y facilite la toma de decisión.</div>
+        </div>
+        <span class="deliverable-tag tag-included">Incluido</span>
+      </div>
+      <div class="deliverable-row">
+        <span class="deliverable-num">02</span>
+        <div class="deliverable-content">
+          <div class="deliverable-title">Copywriting estratégico de todas las páginas</div>
+          <div class="deliverable-desc">Home, Nosotros (con narrativa de fundadora activada), Terapia Psicológica, Psicopedagogía, Evaluaciones, Talleres, Orientación Vocacional y página de equipo con perfiles narrativos de cada especialista. Copy que posiciona, que conecta y que convierte.</div>
+        </div>
+        <span class="deliverable-tag tag-output">Entregable</span>
+      </div>
+      <div class="deliverable-row">
+        <span class="deliverable-num">03</span>
+        <div class="deliverable-content">
+          <div class="deliverable-title">Aplicación del sistema visual en Wordpress</div>
+          <div class="deliverable-desc">Coherencia con el nuevo sistema visual: paleta correctamente jerarquizada, tipografía Gabarito, uso de las ondas como elemento gráfico con criterio. Las posibilidades de aplicación estarán dentro del marco de las plantillas del servicio web contratado.</div>
+        </div>
+        <span class="deliverable-tag tag-included">Incluido</span>
+      </div>
+      <div class="deliverable-row">
+        <span class="deliverable-num">04</span>
+        <div class="deliverable-content">
+          <div class="deliverable-title">SEO básico on-page</div>
+          <div class="deliverable-desc">Meta-descripciones, títulos SEO, estructura de encabezados y texto optimizado para todas las páginas. El punto de partida correcto para que el trabajo de contenido futuro tenga base técnica.</div>
+        </div>
+        <span class="deliverable-tag tag-included">Incluido</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content Strategy block -->
+  <div class="deliverables-block reveal">
+    <div class="deliverables-header">
+      <div class="dh-left">
+        <div class="dh-dot" style="background:var(--blue)"></div>
+        <span class="dh-label">Estrategia de contenidos y RRSS</span>
+      </div>
+      <div class="dh-price-block">
+        <span class="dh-price">300 €</span>
+        <span class="dh-price-pen">S/ 1.189</span>
+      </div>
+    </div>
+    <div class="deliverables-body">
+      <div class="deliverable-row">
+        <span class="deliverable-num">01</span>
+        <div class="deliverable-content">
+          <div class="deliverable-title">Diagnóstico de presencia digital actual</div>
+          <div class="deliverable-desc">Revisión del Instagram y blog existentes: qué está funcionando, qué no tiene dirección, qué patrones de contenido se repiten sin editorial detrás. El punto de partida honesto antes de definir hacia dónde ir.</div>
+        </div>
+        <span class="deliverable-tag tag-included">Incluido</span>
+      </div>
+      <div class="deliverable-row">
+        <span class="deliverable-num">02</span>
+        <div class="deliverable-content">
+          <div class="deliverable-title">Objetivos y métricas por canal</div>
+          <div class="deliverable-desc">Qué se busca lograr con Instagram, con el blog y con la newsletter — en términos concretos y medibles. Definición de KPIs de seguimiento mensual acordados con el cliente para que el reporte tenga sentido real.</div>
+        </div>
+        <span class="deliverable-tag tag-output">Entregable</span>
+      </div>
+      <div class="deliverable-row">
+        <span class="deliverable-num">03</span>
+        <div class="deliverable-content">
+          <div class="deliverable-title">Arquitectura editorial — ejes, formatos y frecuencias</div>
+          <div class="deliverable-desc">Los tres ejes comunicacionales de Habilé traducidos a un sistema de contenidos: qué tipo de piezas produce cada eje, en qué formato, con qué voz y con qué frecuencia. El documento que hace que el servicio mensual no empiece desde cero cada mes.</div>
+        </div>
+        <span class="deliverable-tag tag-output">Entregable</span>
+      </div>
+      <div class="deliverable-row">
+        <span class="deliverable-num">04</span>
+        <div class="deliverable-content">
+          <div class="deliverable-title">Lineamientos de plataforma — Instagram, blog y newsletter</div>
+          <div class="deliverable-desc">Criterios específicos para cada canal: tono por plataforma, tipos de contenido que funcionan en cada una, qué no hacer, y cómo se relacionan entre sí. La estrategia de contenidos es lo que convierte el calendario mensual en una plataforma con dirección.</div>
+        </div>
+        <span class="deliverable-tag tag-output">Entregable</span>
+      </div>
+      <div class="deliverable-row">
+        <span class="deliverable-num">05</span>
+        <div class="deliverable-content">
+          <div class="deliverable-title">Calendario editorial de referencia — primer trimestre</div>
+          <div class="deliverable-desc">Una propuesta de calendario para los primeros tres meses de activación: temas, ejes, momentos clave y oportunidades de contenido. No es rígido — es el mapa de navegación que orienta la producción mensual desde el día uno.</div>
+        </div>
+        <span class="deliverable-tag tag-output">Entregable</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Launch Campaign block -->
+  <div class="deliverables-block reveal">
+    <div class="deliverables-header">
+      <div class="dh-left">
+        <div class="dh-dot" style="background:var(--yellow)"></div>
+        <span class="dh-label">Campaña de lanzamiento</span>
+      </div>
+      <div class="dh-price-block">
+        <span class="dh-price">200 €</span>
+        <span class="dh-price-pen">S/ 793</span>
+      </div>
+    </div>
+    <div class="deliverables-body">
+      <div class="deliverable-row">
+        <span class="deliverable-num">01</span>
+        <div class="deliverable-content">
+          <div class="deliverable-title">Kit interno de cambio</div>
+          <div class="deliverable-desc">Comunicación interna para que el equipo entienda el nuevo posicionamiento, lo haga suyo y pueda hablar de Habilé con coherencia. El cambio empieza desde adentro.</div>
+        </div>
+        <span class="deliverable-tag tag-output">Entregable</span>
+      </div>
+      <div class="deliverable-row">
+        <span class="deliverable-num">02</span>
+        <div class="deliverable-content">
+          <div class="deliverable-title">Mini campaña orgánica en redes sociales — 4 semanas</div>
+          <div class="deliverable-desc">Contenido para anunciar el cambio: 2 publicaciones simples semanales durante el mes de lanzamiento. Copy, concepto y estructura narrativa incluidos. Producción visual coordinada con el cliente.</div>
+        </div>
+        <span class="deliverable-tag tag-output">Entregable</span>
+      </div>
+      <div class="deliverable-row">
+        <span class="deliverable-num">03</span>
+        <div class="deliverable-content">
+          <div class="deliverable-title">Mailing de lanzamiento</div>
+          <div class="deliverable-desc">Un email para anunciar el cambio a la base de pacientes y referidos actuales. Copy, estructura y diseño de envío. Gestión técnica del envío coordinada con el cliente.</div>
+        </div>
+        <span class="deliverable-tag tag-output">Entregable</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="price-summary reveal">
+    <div class="ps-left">
+      <div class="ps-label">Total Fase 2</div>
+      <div class="ps-title">Web + Estrategia de contenidos + Campaña de lanzamiento</div>
+    </div>
+    <div class="ps-right">
+      <div class="ps-price">1.500 €</div>
+      <div class="ps-price-pen">S/ 5.947 soles peruanos</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- SERVICIO MENSUAL -->
+<div class="phase-section" id="mensual">
+  <p class="eyebrow reveal">03 — Servicio mensual recurrente</p>
+
+  <div class="phase-header reveal">
+    <div class="phase-tag" style="background:rgba(15,60,193,0.08);">
+      <span class="phase-tag-num" style="color:var(--blue);">Mensual</span>
+      <span class="phase-tag-name">Brand<br>Management</span>
+      <span class="phase-tag-sub">Instagram · Newsletter · Blog</span>
+    </div>
+    <div class="phase-intro">
+      <h2>La presencia que construye marca con el tiempo</h2>
+      <p>Una vez activada la marca en sus puntos de contacto clave, el trabajo mensual es mantener esa voz viva: con editorial real, con contenido que educa y conecta, y con seguimiento de los resultados que orientan las decisiones futuras. No un calendario, sino una plataforma con dirección.</p>
+    </div>
+  </div>
+
+  <div class="monthly-grid reveal">
+    <!-- Instagram -->
+    <div class="monthly-card">
+      <div class="monthly-card-accent" style="background:var(--orange)"></div>
+      <span class="monthly-card-icon">📱</span>
+      <h4>Instagram</h4>
+      <div class="monthly-items">
+        <div class="monthly-item">
+          <span class="mi-dot" style="background:var(--orange)"></span>
+          <span>8 publicaciones mensuales (2/semana) — mix de educación, equipo y narrativas de proceso</span>
+        </div>
+        <div class="monthly-item">
+          <span class="mi-dot" style="background:var(--orange)"></span>
+          <span>Cada pieza con copy estratégico — no solo descripción de imagen</span>
+        </div>
+        <div class="monthly-item">
+          <span class="mi-dot" style="background:var(--orange)"></span>
+          <span>2 reels mensuales — guión, concepto y edición incluidos. Filmación a cargo del cliente</span>
+        </div>
+        <div class="monthly-item">
+          <span class="mi-dot" style="background:var(--orange)"></span>
+          <span>Stories simples — 2/semana adaptando contenido de feed + conexión directa</span>
+        </div>
+        <div class="monthly-item">
+          <span class="mi-dot" style="background:var(--orange)"></span>
+          <span>Parrilla mensual + reporte de métricas con objetivos acordados</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Newsletter -->
+    <div class="monthly-card">
+      <div class="monthly-card-accent" style="background:var(--blue)"></div>
+      <span class="monthly-card-icon">✉️</span>
+      <h4>Newsletter</h4>
+      <div class="monthly-items">
+        <div class="monthly-item">
+          <span class="mi-dot" style="background:var(--blue)"></span>
+          <span>1 newsletter mensual — redacción y diseño completo</span>
+        </div>
+        <div class="monthly-item">
+          <span class="mi-dot" style="background:var(--blue)"></span>
+          <span>Gestión del envío coordinada con el cliente</span>
+        </div>
+        <div class="monthly-item">
+          <span class="mi-dot" style="background:var(--blue)"></span>
+          <span>Temática alineada al calendario editorial y a los ejes comunicacionales definidos en Fase 1</span>
+        </div>
+        <div class="monthly-item">
+          <span class="mi-dot" style="background:var(--blue)"></span>
+          <span>Voz consistente con el tono de marca documentado</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Blog -->
+    <div class="monthly-card">
+      <div class="monthly-card-accent" style="background:var(--green)"></div>
+      <span class="monthly-card-icon">✍️</span>
+      <h4>Blog</h4>
+      <div class="monthly-items">
+        <div class="monthly-item">
+          <span class="mi-dot" style="background:var(--green)"></span>
+          <span>1 artículo de blog mensual — temática propuesta por el cliente</span>
+        </div>
+        <div class="monthly-item">
+          <span class="mi-dot" style="background:var(--green)"></span>
+          <span>Redacción con criterios SEO on-page básicos</span>
+        </div>
+        <div class="monthly-item">
+          <span class="mi-dot" style="background:var(--green)"></span>
+          <span>Publicación gestionada en la web de Habilé</span>
+        </div>
+        <div class="monthly-item">
+          <span class="mi-dot" style="background:var(--green)"></span>
+          <span>Contenido reutilizable como base para newsletter e Instagram del mismo mes</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="price-summary reveal" style="margin-top:32px;">
+    <div class="ps-left">
+      <div class="ps-label">Servicio mensual recurrente</div>
+      <div class="ps-title">Instagram · Newsletter · Blog</div>
+    </div>
+    <div class="ps-right">
+      <div class="ps-price">600 € / mes</div>
+      <div class="ps-price-pen">S/ 2.379 / mes</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- INVERSIÓN TOTAL -->
+<div class="section investment-section" id="inversion">
+  <p class="eyebrow reveal">04 — Resumen de inversión</p>
+  <div style="max-width:600px" class="reveal">
+    <h2 style="font-family:var(--sans);font-size:clamp(26px,3.2vw,38px);font-weight:700;letter-spacing:-0.8px;line-height:1.05;margin-bottom:16px;">Lo que cuesta construir<br><em style="font-family:var(--serif);font-style:italic;font-weight:400;color:var(--ink-mid);">una marca que dure</em></h2>
+    <p style="font-family:var(--serif);font-size:14.5px;line-height:1.8;color:var(--ink-mid);">A continuación, el desglose completo por componente — con el detalle en euros y su equivalencia en soles peruanos al tipo de cambio vigente.</p>
+  </div>
+
+  <table class="inv-table reveal">
+    <thead>
+      <tr>
+        <th style="width:40%">Componente</th>
+        <th>Tipo</th>
+        <th>EUR</th>
+        <th>PEN</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <div class="inv-row-label">Fase 1 — Brand Strategy + Brand System</div>
+          <div class="inv-row-sub">Brand Book completo: estrategia + visuals</div>
+        </td>
+        <td><span class="inv-row-type type-project">Proyecto</span></td>
+        <td>
+          <div class="inv-row-price">800 €</div>
+        </td>
+        <td>
+          <div class="inv-row-price">S/ 3.172</div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="inv-row-label">Fase 2 — Web</div>
+          <div class="inv-row-sub">Arquitectura, copywriting completo, SEO on-page</div>
+        </td>
+        <td><span class="inv-row-type type-project">Proyecto</span></td>
+        <td>
+          <div class="inv-row-price">1.000 €</div>
+        </td>
+        <td>
+          <div class="inv-row-price">S/ 3.964</div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="inv-row-label">Fase 2 — Estrategia de contenidos y RRSS</div>
+          <div class="inv-row-sub">Arquitectura editorial, ejes, formatos, métricas y calendario trimestral</div>
+        </td>
+        <td><span class="inv-row-type type-project">Proyecto</span></td>
+        <td>
+          <div class="inv-row-price">300 €</div>
+        </td>
+        <td>
+          <div class="inv-row-price">S/ 1.189</div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="inv-row-label">Fase 2 — Campaña de lanzamiento</div>
+          <div class="inv-row-sub">Kit interno + mini campaña orgánica + mailing</div>
+        </td>
+        <td><span class="inv-row-type type-project">Proyecto</span></td>
+        <td>
+          <div class="inv-row-price">200 €</div>
+        </td>
+        <td>
+          <div class="inv-row-price">S/ 793</div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="inv-row-label">Servicio mensual — Instagram · Newsletter · Blog</div>
+          <div class="inv-row-sub">8 posts + 2 reels (guión, concepto y edición) + stories + newsletter + artículo. Filmación a cargo del cliente.</div>
+        </td>
+        <td><span class="inv-row-type type-monthly">Mensual</span></td>
+        <td>
+          <div class="inv-row-price">600 € / mes</div>
+        </td>
+        <td>
+          <div class="inv-row-price">S/ 2.379 / mes</div>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr class="inv-total-row">
+        <td colspan="2">
+          <div class="inv-total-label">Total arranque — Fases 1 + 2 + primer mes de servicio</div>
+        </td>
+        <td>
+          <div class="inv-total-price">2.900 €</div>
+          <div class="inv-total-pen">primer mes incluido</div>
+        </td>
+        <td>
+          <div class="inv-total-price">S/ 11.497</div>
+          <div class="inv-total-pen">primer mes incluido</div>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <div class="note-block reveal">
+    <p><strong style="font-family:var(--sans);font-size:12px;font-weight:700;">Nota sobre el tipo de cambio.</strong> Los precios base están en euros. La equivalencia en soles peruanos se calcula a 1 EUR = 3,9644 PEN (Investing.com, 28 mayo 2026). Las cifras en soles son referenciales y se actualizarán al tipo de cambio vigente en la fecha de pago acordada.</p>
+    <p><strong style="font-family:var(--sans);font-size:12px;font-weight:700;">Sobre el servicio mensual.</strong> El servicio mensual se inicia una vez cerrada y entregada la Fase 1, para garantizar que la producción de contenido esté alineada con la estrategia y el sistema de marca definidos. Los primeros tres meses de servicio pueden ajustarse en alcance si el cliente necesita priorizar algunos canales.</p>
+    <p><strong style="font-family:var(--sans);font-size:12px;font-weight:700;">Producción de reels.</strong> El servicio mensual incluye guión, concepto y edición de los 2 reels mensuales. La filmación es responsabilidad del cliente y se coordina con el calendario editorial entregado mensualmente.</p>
+  </div>
+</div>
+
+
+<!-- CLOSE -->
+<div class="close-section">
+  <div class="close-content">
+    <p class="eyebrow eyebrow-light reveal">Para cerrar</p>
+    <h2 class="reveal">
+      Una inversión en coherencia,
+      <em>no solo en producción.</em>
+    </h2>
+    <p class="reveal">Lo que distingue esta propuesta no es el volumen de entregables — es la lógica que los conecta. Cada fase construye sobre la anterior. El Brand Book orienta el copywriting web. El copy web define la voz del contenido mensual. El contenido mensual refuerza el posicionamiento que se definió en la estrategia.</p>
+    <p class="reveal">Eso es lo que hace que una marca crezca con el tiempo en vez de repetirse sin dirección.</p>
+
+    <div class="close-accent-bar reveal">
+      <span style="background:var(--yellow); width:32px;"></span>
+      <span style="background:var(--orange); width:32px;"></span>
+      <span style="background:var(--green); width:32px;"></span>
+      <span style="background:var(--blue); width:32px;"></span>
+    </div>
+  </div>
+
+  <div class="close-meta reveal">
+    <p>Ignacia Benavente<br>Estrategia de marca · Comunicaciones</p>
+    <p>Habilé · Psicología y Psicopedagogía<br>Lima, Perú · 3 sedes</p>
+    <p>Mayo 2026</p>
+  </div>
+</div>
+
+
+<script>
+  // Reveal on scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.06, rootMargin: '0px 0px -40px 0px' });
+  revealEls.forEach(el => observer.observe(el));
+
+  // Active nav
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const scrollSpy = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(a => {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id);
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+  sections.forEach(s => scrollSpy.observe(s));
+</script>
+</body>
+</html>
