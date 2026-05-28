@@ -602,6 +602,161 @@
     letter-spacing: 0.03em;
     margin-top: 8px;
   }
+
+  /* ── TIMELINE ── */
+  .timeline-section {
+    padding: 80px 64px;
+    background: var(--carbon);
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .timeline-intro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: end;
+    margin-bottom: 56px;
+  }
+  .timeline-intro h2 {
+    font-family: var(--sans);
+    font-size: clamp(24px, 2.8vw, 36px);
+    font-weight: 700;
+    letter-spacing: -0.8px;
+    color: var(--white);
+    line-height: 1.05;
+  }
+  .timeline-intro h2 em {
+    display: block;
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    color: rgba(255,255,255,0.45);
+  }
+  .timeline-intro p {
+    font-family: var(--serif);
+    font-size: 13.5px;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.5);
+  }
+  .tl-grid { position: relative; }
+  .tl-weeks-header {
+    display: grid;
+    grid-template-columns: 148px repeat(13, 1fr);
+    margin-bottom: 6px;
+  }
+  .tl-week-label {
+    font-family: var(--sans);
+    font-size: 9px; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: rgba(255,255,255,0.2);
+    text-align: center;
+  }
+  .tl-week-label.hl { color: rgba(255,255,255,0.5); }
+  .tl-rows { display: flex; flex-direction: column; gap: 8px; }
+  .tl-row {
+    display: grid;
+    grid-template-columns: 148px 1fr;
+    align-items: center;
+    min-height: 48px;
+  }
+  .tl-row-label {
+    font-family: var(--sans);
+    font-size: 10px; font-weight: 600;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.06em; text-transform: uppercase;
+    padding-right: 16px; line-height: 1.3;
+  }
+  .tl-row-label small {
+    display: block;
+    font-family: var(--serif);
+    font-style: italic; font-weight: 400;
+    font-size: 10px; text-transform: none;
+    letter-spacing: 0;
+    color: rgba(255,255,255,0.2);
+    margin-top: 2px;
+  }
+  .tl-track {
+    position: relative;
+    height: 48px;
+    display: grid;
+    grid-template-columns: repeat(13, 1fr);
+    gap: 3px;
+  }
+  .tl-bg-cell {
+    height: 48px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.035);
+  }
+  .tl-bar {
+    position: absolute;
+    top: 6px; bottom: 6px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    padding: 0 14px;
+    gap: 8px;
+    overflow: hidden;
+  }
+  .tl-bar-label {
+    font-family: var(--sans);
+    font-size: 11px; font-weight: 700;
+    white-space: nowrap; letter-spacing: -0.1px;
+  }
+  .tl-bar-weeks {
+    font-family: var(--serif);
+    font-style: italic; font-size: 10px;
+    opacity: 0.65; white-space: nowrap;
+  }
+  .tl-sep {
+    height: 1px;
+    background: rgba(255,255,255,0.05);
+    margin: 6px 0 6px 148px;
+  }
+  .tl-overlap {
+    position: absolute;
+    top: 50%; transform: translateY(-50%);
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 20px;
+    padding: 3px 10px;
+    font-family: var(--sans);
+    font-size: 9px; font-weight: 600;
+    color: rgba(255,255,255,0.65);
+    letter-spacing: 0.07em; text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .tl-legend {
+    display: flex; gap: 20px; flex-wrap: wrap;
+    margin-top: 28px;
+  }
+  .tl-legend-item { display: flex; align-items: center; gap: 8px; }
+  .tl-legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+  .tl-legend-label {
+    font-family: var(--sans);
+    font-size: 11px; color: rgba(255,255,255,0.35);
+  }
+  .tl-totals {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    display: flex; gap: 48px;
+  }
+  .tl-tot-label {
+    font-family: var(--sans);
+    font-size: 9px; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: rgba(255,255,255,0.22); margin-bottom: 4px;
+  }
+  .tl-tot-value {
+    font-family: var(--sans);
+    font-size: 20px; font-weight: 700;
+    letter-spacing: -0.5px; color: var(--white);
+  }
+  .tl-tot-value em {
+    font-family: var(--serif);
+    font-style: italic; font-weight: 400;
+    font-size: 12px; color: rgba(255,255,255,0.3);
+    margin-left: 6px;
+  }
 </style>
 </head>
 <body>
@@ -617,6 +772,7 @@
   <div class="nav-inner">
     <div class="nav-brand">Habilé <span>Propuesta económica</span></div>
     <ul class="nav-links">
+      <li><a href="#timeline">Cronograma</a></li>
       <li><a href="#resumen">Resumen</a></li>
       <li><a href="#fase1">Fase 1</a></li>
       <li><a href="#fase2">Fase 2</a></li>
@@ -657,6 +813,167 @@
       <span style="background:var(--blue)"></span>
     </div>
   </div>
+</div>
+
+
+<!-- TIMELINE -->
+<div class="timeline-section reveal" id="timeline">
+  <p class="eyebrow eyebrow-light reveal">00 — Cronograma de trabajo</p>
+  <div class="timeline-intro reveal">
+    <h2>De la estrategia<br><em>al lanzamiento</em></h2>
+    <p>La Fase 1 y la Fase 2 se solapan una o dos semanas para mantener el momentum sin comprometer la calidad. Dentro de la Fase 2, cada entregable tiene su propio espacio: primero la web, luego la estrategia de contenidos y finalmente la campaña de lanzamiento.</p>
+  </div>
+
+  <div class="tl-grid reveal">
+
+    <!-- Week headers: S1–S13 -->
+    <div class="tl-weeks-header">
+      <div></div>
+      <div class="tl-week-label hl">S1</div>
+      <div class="tl-week-label hl">S2</div>
+      <div class="tl-week-label hl">S3</div>
+      <div class="tl-week-label hl">S4</div>
+      <div class="tl-week-label hl">S5</div>
+      <div class="tl-week-label">S6</div>
+      <div class="tl-week-label">S7</div>
+      <div class="tl-week-label">S8</div>
+      <div class="tl-week-label">S9</div>
+      <div class="tl-week-label">S10</div>
+      <div class="tl-week-label">S11</div>
+      <div class="tl-week-label">S12</div>
+      <div class="tl-week-label">S13</div>
+    </div>
+
+    <div class="tl-rows">
+
+      <!-- FASE 1 -->
+      <div class="tl-row">
+        <div class="tl-row-label">Fase 1<small>Brand Strategy<br>+ Brand System</small></div>
+        <div class="tl-track" id="track-f1">
+          <div class="tl-bg-cell"></div><div class="tl-bg-cell"></div><div class="tl-bg-cell"></div>
+          <div class="tl-bg-cell"></div><div class="tl-bg-cell"></div><div class="tl-bg-cell"></div>
+          <div class="tl-bg-cell"></div><div class="tl-bg-cell"></div><div class="tl-bg-cell"></div>
+          <div class="tl-bg-cell"></div><div class="tl-bg-cell"></div><div class="tl-bg-cell"></div>
+          <div class="tl-bg-cell"></div>
+          <!-- Bar: semanas 1–5, col 1 al 5 de 13 -->
+          <div class="tl-bar" style="left:0%; width:calc((5/13)*100% - 4px); background:rgba(255,195,4,0.2); border:1px solid rgba(255,195,4,0.35);">
+            <span class="tl-bar-label" style="color:var(--yellow);">Brand Strategy + System</span>
+            <span class="tl-bar-weeks" style="color:var(--yellow);">4–5 sem.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-sep"></div>
+
+      <!-- FASE 2 — Web -->
+      <div class="tl-row">
+        <div class="tl-row-label">Web<small>Arquitectura +<br>Copywriting + SEO</small></div>
+        <div class="tl-track">
+          <div class="tl-bg-cell"></div><div class="tl-bg-cell"></div><div class="tl-bg-cell"></div>
+          <div class="tl-bg-cell"></div><div class="tl-bg-cell"></div><div class="tl-bg-cell"></div>
+          <div class="tl-bg-cell"></div><div class="tl-bg-cell"></div><div class="tl-bg-cell"></div>
+          <div class="tl-bg-cell"></div><div class="tl-bg-cell"></div><div class="tl-bg-cell"></div>
+          <div class="tl-bg-cell"></div>
+          <!-- Bar: semanas 4–7 (solapamiento con F1 en S4–S5), col 4 a 7 -->
+          <div class="tl-bar" style="left:calc((3/13)*100% + 2px); width:calc((4/13)*100% - 4px); background:rgba(57,180,74,0.18); border:1px solid rgba(57,180,74,0.35);">
+            <span class="tl-bar-label" style="color:var(--green);">Web</span>
+            <span class="tl-bar-weeks" style="color:var(--green);">4 sem.</span>
+          </div>
+          <!-- Overlap badge -->
+          <div class="tl-overlap" style="left:calc((3/13)*100% + 6px);">solapamiento</div>
+        </div>
+      </div>
+
+      <!-- FASE 2 — Estrategia de contenidos -->
+      <div class="tl-row">
+        <div class="tl-row-label">Estrategia<small>Contenidos + RRSS</small></div>
+        <div class="tl-track">
+          <div class="tl-bg-cell"></div><div class="tl-bg-cell"></div><div class="tl-bg-cell"></div>
+          <div class="tl-bg-cell"></div><div class="tl-bg-cell"></div><div class="tl-bg-cell"></div>
+          <div class="tl-bg-cell"></div><div class="tl-bg-cell"></div><div class="tl-bg-cell"></div>
+          <div class="tl-bg-cell"></div><div class="tl-bg-cell"></div><div class="tl-bg-cell"></div>
+          <div class="tl-bg-cell"></div>
+          <!-- Bar: semanas 8–9, col 8–9 -->
+          <div class="tl-bar" style="left:calc((7/13)*100% + 2px); width:calc((2/13)*100% - 4px); background:rgba(15,60,193,0.2); border:1px solid rgba(15,60,193,0.4);">
+            <span class="tl-bar-label" style="color:#7a9fff;">Estrategia</span>
+            <span class="tl-bar-weeks" style="color:#7a9fff;">2 sem.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- FASE 2 — Campaña lanzamiento -->
+      <div class="tl-row">
+        <div class="tl-row-label">Lanzamiento<small>Kit + RRSS + Mailing</small></div>
+        <div class="tl-track">
+          <div class="tl-bg-cell"></div><div class="tl-bg-cell"></div><div class="tl-bg-cell"></div>
+          <div class="tl-bg-cell"></div><div class="tl-bg-cell"></div><div class="tl-bg-cell"></div>
+          <div class="tl-bg-cell"></div><div class="tl-bg-cell"></div><div class="tl-bg-cell"></div>
+          <div class="tl-bg-cell"></div><div class="tl-bg-cell"></div><div class="tl-bg-cell"></div>
+          <div class="tl-bg-cell"></div>
+          <!-- Bar: semanas 10–11, col 10–11 -->
+          <div class="tl-bar" style="left:calc((9/13)*100% + 2px); width:calc((2/13)*100% - 4px); background:rgba(255,146,30,0.2); border:1px solid rgba(255,146,30,0.4);">
+            <span class="tl-bar-label" style="color:var(--orange);">Lanzamiento</span>
+            <span class="tl-bar-weeks" style="color:var(--orange);">2 sem.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-sep"></div>
+
+      <!-- MENSUAL -->
+      <div class="tl-row">
+        <div class="tl-row-label">Mensual<small>Instagram · Blog<br>· Newsletter</small></div>
+        <div class="tl-track">
+          <div class="tl-bg-cell"></div><div class="tl-bg-cell"></div><div class="tl-bg-cell"></div>
+          <div class="tl-bg-cell"></div><div class="tl-bg-cell"></div><div class="tl-bg-cell"></div>
+          <div class="tl-bg-cell"></div><div class="tl-bg-cell"></div><div class="tl-bg-cell"></div>
+          <div class="tl-bg-cell"></div><div class="tl-bg-cell"></div><div class="tl-bg-cell"></div>
+          <div class="tl-bg-cell"></div>
+          <!-- Bar: semana 12 en adelante -->
+          <div class="tl-bar" style="left:calc((11/13)*100% + 2px); width:calc((2/13)*100% - 2px); background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.15); border-right: 3px dashed rgba(255,255,255,0.2);">
+            <span class="tl-bar-label" style="color:rgba(255,255,255,0.55);">Inicio</span>
+            <span class="tl-bar-weeks" style="color:rgba(255,255,255,0.3);">continuo →</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /tl-rows -->
+
+    <div class="tl-legend reveal">
+      <div class="tl-legend-item">
+        <div class="tl-legend-dot" style="background:rgba(255,195,4,0.5)"></div>
+        <span class="tl-legend-label">Fase 1 — Brand Strategy + System (4–5 sem.)</span>
+      </div>
+      <div class="tl-legend-item">
+        <div class="tl-legend-dot" style="background:rgba(57,180,74,0.5)"></div>
+        <span class="tl-legend-label">Web (4 sem.)</span>
+      </div>
+      <div class="tl-legend-item">
+        <div class="tl-legend-dot" style="background:rgba(15,60,193,0.5)"></div>
+        <span class="tl-legend-label">Estrategia de contenidos (2 sem.)</span>
+      </div>
+      <div class="tl-legend-item">
+        <div class="tl-legend-dot" style="background:rgba(255,146,30,0.5)"></div>
+        <span class="tl-legend-label">Campaña de lanzamiento (2 sem.)</span>
+      </div>
+      <div class="tl-legend-item">
+        <div class="tl-legend-dot" style="background:rgba(255,255,255,0.2)"></div>
+        <span class="tl-legend-label">Servicio mensual (inicio semana 12+)</span>
+      </div>
+    </div>
+
+    <div class="tl-totals reveal">
+      <div>
+        <div class="tl-tot-label">Duración total del proyecto</div>
+        <div class="tl-tot-value">10–11 semanas <em>desde el kick-off al lanzamiento</em></div>
+      </div>
+      <div>
+        <div class="tl-tot-label">Inicio del servicio mensual</div>
+        <div class="tl-tot-value">Semana 12 <em>posterior al lanzamiento</em></div>
+      </div>
+    </div>
+
+  </div><!-- /tl-grid -->
 </div>
 
 
